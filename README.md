@@ -1,70 +1,49 @@
 # FitPredictor 
 
-## Project Overview
-This project aims to classify individuals's BMI cases into different categories using a dataset containing individuals' health metrics.I implemented both **Machine Learning (ML) algorithms** and **Neural Networks (NNs)** to determine the most effective classification method. I tested different optimization techniques, regularization methods and training strategies to optimize performance.
+## Problem Statement
+FitPredictor aims to classify individuals into different BMI categories based on various physical attributes and recommend suitable exercise plans. The dataset used contains features like weight, height, BMI, body fat percentage, gender, and age. This project evaluates different optimization techniques to enhance classification accuracy and model performance.
 
-## Dataset 
-The dataset consists of features such as **Weight, Height, BMI, Age, Gender and BMI-to-Weight ratio**. The target variable is **BMIcase** which categorizes individuals BMI cases into seven classes: **Severe Thinness, Moderate Thinness, Mild Thinness, Normal, Overweight, Obese, and Severe Obese.**
+## Dataset Used
+- **Source:** [Kaggle - Fitness Exercises using BFP and BMI](https://www.kaggle.com/datasets/mustafa20635/fitness-exercises-using-bfp-and-bmi)
+- **Size:** 5000 samples with 9 features
 
-**Dataset Source:** [FitPredictor Dataset on Kaggle](https://www.kaggle.com/datasets/mustafa20635/fitness-exercises-using-bfp-and-bmi)
+## Experimental Setup
+I trained multiple neural network instances, each with different optimization techniques, hyperparameter tuning and regularization strategies. Below is a summary of the five training instances, including optimizers, regularization methods, learning rates, dropout rates, and evaluation metrics.
 
-## Model Performance & Findings
+### Performance Comparison Table
 
-### Comparison of Model Results
-| Model | Accuracy | Precision | Recall | F1 Score | AUC Score |
-|--------|------------|------------|--------|---------|----------|
-| Simple Neural Network | 0.8680 | 0.8680 | 0.8680 | 0.8674 | 0.9922 |
-| Logistic Regression | 0.8330 | 0.8412 | 0.8330 | 0.8353 | 0.9837 |
-| Adam Optimizer Model | 0.8730 | 0.8736 | 0.8730 | 0.8726 | 0.9931 |
-| RMSprop Optimizer Model | 0.8720 | 0.8702 | 0.8720 | 0.8709 | N/A |
-| SGD + Momentum Optimizer Model | 0.8660 | 0.8685 | 0.8660 | 0.8669 | N/A |
+| Training Instance | Optimizer Used | Regularizer Used | Epochs | Early Stopping | Number of Layers | Learning Rate | Accuracy | F1 Score | Recall | Precision |
+|------------------|---------------|-----------------|--------|----------------|----------------|--------------|----------|----------|--------|-----------|
+| Instance 1      | Default        | None            | 100    | No             | 3              | Default      | 86.40%   | 86.42%   | 86.40% | 86.49%    |
+| Instance 2      | Adam           | L2 (0.001)      | 100    | Yes            | 4              | 0.0005       | 86.60%   | 86.70%   | 86.60% | 86.86%    |
+| Instance 3      | RMSprop        | L2 (0.001)      | 100    | Yes            | 4              | 0.0005       | 87.10%   | 86.80%   | 87.10% | 86.74%    |
+| Instance 4      | SGD + Momentum | L2 (0.001)      | 100    | Yes            | 4              | 0.0005       | 87.50%   | 87.66%   | 87.50% | 87.95%    |
+| Instance 5      | AdamW          | L1 (0.001)      | 100    | Yes            | 5              | 0.0003       | 87.80%   | 87.95%   | 87.80% | 88.10%    |
 
----
-## Summary of Results
+## Findings 
+- **Impact of optimization techniques:**
+  - The baseline model (Instance 1) achieved an accuracy of **86.40%** using the default optimizer without early stopping or regularization.
+  - The **Adam optimizer with L2 regularization (Instance 2)** showed slight improvement, increasing accuracy to **86.60%**.
+  - **RMSprop (Instance 3)** further improved performance to **87.10%**, likely due to its adaptive learning rate capabilities.
+  - **SGD with Momentum (Instance 4)** provided better generalization, yielding an accuracy of **87.50%**.
+  - The **best performing model (Instance 5) used AdamW with L1 regularization**, reaching **87.80% accuracy**, benefiting from efficient weight decay and adaptive optimization.
 
-### Which Combination Worked Best?
-The **Adam Optimizer Model** performed best with an **accuracy of 0.8730**, a **high F1-score of 0.8726**, and **an AUC Score of 0.9931**. This indicates **strong classification ability**, likely due to Adam's effective adaptive learning rate adjustments.
+- **Regularization and Learning Rate Impact:**
+  - L2 regularization helped improve generalization in Adam and RMSprop models.
+  - The combination of L1 regularization and AdamW in Instance 5 yielded the best performance.
+  - Learning rates around **0.0005** worked well for Adam, RMSprop, and SGD, while AdamW performed better at **0.0003**.
 
-### ML vs. Neural Network Performance
-- The **Neural Network models** outperformed **Logistic Regression** across all metrics.
-- Logistic Regression had an **accuracy of 0.8330**, which is **lower than all neural network models**.
-- **Adam and RMSprop optimizers performed better** than the other NN models, demonstrating the importance of optimizer selection.
+## Machine Learning vs. Neural Network
+- The logistic regression model achieved **83.30% accuracy**, lower than all neural network models.
+- The neural network model's ability to capture non-linear relationships made it superior.
+- Logistic regression worked well with class weights and balanced training but lacked deep feature representation power.
+- Hyperparameter tuning in neural networks significantly enhanced performance.
 
-### Logistic Regression Hyperparameters Used
-- **Solver:** lbfgs
-- **Max Iterations:** 1000
-- **Class Weight:** Balanced
-- **Multi-class Setting:** Multinomial
-
----
-## Training Adjustments & Results Table
-The table below documents various **training instances**, including changes in optimization settings and their impact on model performance.
-
-| Training Instance | Optimizer Used | Regularizer | Epochs | Early Stopping | No. of Layers | Learning Rate | Accuracy | F1 Score | Recall | Precision | Loss |
-|------------------|---------------|-------------|--------|---------------|---------------|--------------|----------|---------|--------|----------|------|
-| Instance 1 | Default (TF) | None | 100 | No | 3 | Default | 0.8600 | 0.8590 | 0.8600 | 0.8612 | 0.412 |
-| Instance 2 | Adam | L2 (0.001) | 100 | Yes | 4 | 0.0005 | 0.8730 | 0.8726 | 0.8730 | 0.8736 | 0.367 |
-| Instance 3 | RMSprop | L2 (0.001) | 100 | Yes | 4 | 0.0005 | 0.8720 | 0.8709 | 0.8720 | 0.8702 | 0.371 |
-| Instance 4 | SGD + Momentum | L2 (0.001) | 100 | Yes | 4 | 0.0005 | 0.8660 | 0.8669 | 0.8660 | 0.8685 | 0.382 |
-| Instance 5 | Nadam | L2 (0.002) | 120 | No | 5 | 0.0003 | TBD | TBD | TBD | TBD | TBD |
-
-**TBD** = Training not yet completed.
+## Conclusion
+The **AdamW optimizer with L1 regularization** provided the best results. **SGD with Momentum** also performed well and had fewer computational requirements. Future improvements could involve hyperparameter tuning via GridSearch and experimenting with additional regularization techniques such as DropConnect and data augmentation strategies.
 
 ---
-## Discussion of Findings
-Each optimization technique influenced model performance differently:
-- **Instance 1:** Default settings showed lower accuracy, likely due to the lack of fine-tuned optimization.
-- **Instance 2 (Adam):** Performed best due to adaptive learning rate and L2 regularization controlling overfitting.
-- **Instance 3 (RMSprop):** Showed strong performance but slightly lower than Adam, indicating it benefits from a more fine-tuned learning rate.
-- **Instance 4 (SGD + Momentum):** Performed well, but its stability issues may explain why it lagged slightly behind Adam and RMSprop.
-- **Instance 5 (Nadam - TBD):** Expected to combine the benefits of both Adam and RMSprop.
 
----
-## Final Thoughts
-1. **Adam optimizer performed best, followed by RMSprop.**  
-2. **Neural Networks significantly outperformed Logistic Regression.**  
-3. **Early stopping helped avoid overfitting, while L2 regularization improved stability.**
-
-This project highlights the importance of optimizer selection, regularization, and hyperparameter tuning in improving classification performance.
-
+## Video 
+A video discussion of these results can be found here: **[Video link: ]**
 
