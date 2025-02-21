@@ -1,14 +1,13 @@
-# README - FitPredictor Project
+# FitPredictor 
 
 ## Project Overview
-This project aims to classify individuals into different BMI categories using a dataset containing anthropometric measurements. We implemented both **Machine Learning (ML) algorithms** and **Neural Networks (NNs)** to determine the most effective classification method. We tested different optimization techniques, regularization methods, and training strategies to optimize performance.
+This project aims to classify individuals's BMI cases into different categories using a dataset containing individuals' health metrics.I implemented both **Machine Learning (ML) algorithms** and **Neural Networks (NNs)** to determine the most effective classification method. I tested different optimization techniques, regularization methods and training strategies to optimize performance.
 
-## Dataset Used
-The dataset consists of features such as **Weight, Height, BMI, Age, Gender, and BMI-to-Weight ratio**. The target variable is **BMIcase**, which categorizes individuals into seven BMI classes: **Severe Thinness, Moderate Thinness, Mild Thinness, Normal, Overweight, Obese, and Severe Obese.**
+## Dataset 
+The dataset consists of features such as **Weight, Height, BMI, Age, Gender and BMI-to-Weight ratio**. The target variable is **BMIcase** which categorizes individuals BMI cases into seven classes: **Severe Thinness, Moderate Thinness, Mild Thinness, Normal, Overweight, Obese, and Severe Obese.**
 
 **Dataset Source:** [FitPredictor Dataset on Kaggle](https://www.kaggle.com/datasets/mustafa20635/fitness-exercises-using-bfp-and-bmi)
 
----
 ## Model Performance & Findings
 
 ### Comparison of Model Results
