@@ -7,11 +7,11 @@ This project addresses the rising prevalence of non-communicable diseases where 
 Leveraging deep learning alongside traditional machine learning, FitPredictor aims to empower individuals and healthcare providers with data-driven results for improved health outcomes.  
 The model demonstrates the practical application of ML in solving real-world health challenges, with potential to drive significant health impact among communities.
 
-- **Motivation:**  
+**Motivation**  
 With a significant rise in non-communicable diseases especially in Rwanda, there is an urgent need for personalized health tools that go beyond generic BMI calculators. Current tools do not offer the detailed, actionable insights needed to drive preventive health care.  
 FitPredictor aims to bridge the gap between health awareness and informed decision-making.
 
-- **Problem Statement:**  
+**Problem Statement**  
 Many individuals in Rwanda lack awareness of their BMI classification and its associated health implications due to limited access to tailored health tools. Existing solutions provide only basic BMI values without context. FitPredictor addresses this gap by leveraging machine learning to deliver accurate and relevant BMI classifications along with health insights.
 
 ## Dataset
