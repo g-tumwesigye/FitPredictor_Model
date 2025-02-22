@@ -1,49 +1,32 @@
-# FitPredictor 
+FitPredictor
+Overview
+Problem Statement:
+The goal of FitPredictor is to classify individuals into BMI categories using physical attributes such as weight, height, and derived features.
+We aim to improve predictive accuracy by experimenting with different neural network architectures and hyperparameters.
+The project compares deep learning models with a traditional machine learning baseline.
+Insights are drawn from multiple training instances to identify the best combination of hyperparameters.
 
-## Problem Statement
-FitPredictor aims to classify individuals into different BMI categories based on various physical attributes and recommend suitable exercise plans. The dataset used contains features like weight, height, BMI, body fat percentage, gender, and age. This project evaluates different optimization techniques to enhance classification accuracy and model performance.
+Dataset Used:
+The dataset was obtained from Kaggle. You can find it here: Fitness Exercises Using BFP and BMI.
+It contains 5,000 samples with features including Weight, Height, BMI, Age, and other derived variables.
 
-## Dataset Used
-- **Source:** [Kaggle - Fitness Exercises using BFP and BMI](https://www.kaggle.com/datasets/mustafa20635/fitness-exercises-using-bfp-and-bmi)
-- **Size:** 5000 samples with 9 features
+Experiments & Findings
+The following table summarizes the key training instances for the optimized neural network. Each instance varies in the choice of optimizer, regularizer, learning rate, and other hyperparameters. A machine learning baseline using Logistic Regression is also provided.
 
-## Experimental Setup
-I trained multiple neural network instances, each with different optimization techniques, hyperparameter tuning and regularization strategies. Below is a summary of the five training instances, including optimizers, regularization methods, learning rates, dropout rates, and evaluation metrics.
+Instance	Optimizer Used	Regularizer Used	Epochs	Early Stopping	Number of Layers	Learning Rate	Accuracy	F1 Score	Recall	Precision
+Instance 1	Default (no explicit optimizer)	None (default settings)	100	No	3 (Simple NN architecture)	Default	0.8627	0.8587	0.8627	0.8593
+Instance 2	Adam	L2 (λ = 0.001)	100	No	4 (Dense + BatchNorm + Dropout layers)	0.0005	0.8640	0.8619	0.8640	0.8617
+Instance 3	RMSprop	L2 (λ = 0.001)	100	No	4 (Dense + BatchNorm + Dropout layers)	0.0005	0.8387	0.8429	0.8387	0.8539
+Instance 4	SGD + Momentum (momentum=0.9)	L2 (λ = 0.001)	100	No	4 (Dense + BatchNorm + Dropout layers)	0.0005	0.8440	0.8456	0.8440	0.8500
+Instance 5	Logistic Regression (ML baseline)	Class weight balancing; solver=lbfgs, multi_class=multinomial	N/A	N/A	N/A	N/A	0.8240	0.8273	0.8240	0.8363
+Note: Instance 5 represents the traditional ML approach used for comparison.
 
-### Performance Comparison Table
+Summary of Findings
+Best Neural Network Configuration:
+Among the neural network models, the configuration using the Adam optimizer with L2 regularization (λ = 0.001) and a learning rate of 0.0005 achieved the highest performance (Accuracy: 86.40%).
 
-| Training Instance | Optimizer Used | Regularizer Used | Epochs | Early Stopping | Number of Layers | Learning Rate | Accuracy | F1 Score | Recall | Precision |
-|------------------|---------------|-----------------|--------|----------------|----------------|--------------|----------|----------|--------|-----------|
-| Instance 1      | Default        | None            | 100    | No             | 3              | Default      | 86.40%   | 86.42%   | 86.40% | 86.49%    |
-| Instance 2      | Adam           | L2 (0.001)      | 100    | Yes            | 4              | 0.0005       | 86.60%   | 86.70%   | 86.60% | 86.86%    |
-| Instance 3      | RMSprop        | L2 (0.001)      | 100    | Yes            | 4              | 0.0005       | 87.10%   | 86.80%   | 87.10% | 86.74%    |
-| Instance 4      | SGD + Momentum | L2 (0.001)      | 100    | Yes            | 4              | 0.0005       | 87.50%   | 87.66%   | 87.50% | 87.95%    |
-| Instance 5      | AdamW          | L1 (0.001)      | 100    | Yes            | 5              | 0.0003       | 87.80%   | 87.95%   | 87.80% | 88.10%    |
+Neural Network vs. ML Algorithm:
+The neural network implementations consistently outperformed the Logistic Regression baseline across all evaluation metrics. This indicates that a well-optimized deep learning model is better suited for this BMI classification task.
 
-## Findings 
-- **Impact of optimization techniques:**
-  - The baseline model (Instance 1) achieved an accuracy of **86.40%** using the default optimizer without early stopping or regularization.
-  - The **Adam optimizer with L2 regularization (Instance 2)** showed slight improvement, increasing accuracy to **86.60%**.
-  - **RMSprop (Instance 3)** further improved performance to **87.10%**, likely due to its adaptive learning rate capabilities.
-  - **SGD with Momentum (Instance 4)** provided better generalization, yielding an accuracy of **87.50%**.
-  - The **best performing model (Instance 5) used AdamW with L1 regularization**, reaching **87.80% accuracy**, benefiting from efficient weight decay and adaptive optimization.
-
-- **Regularization and Learning Rate Impact:**
-  - L2 regularization helped improve generalization in Adam and RMSprop models.
-  - The combination of L1 regularization and AdamW in Instance 5 yielded the best performance.
-  - Learning rates around **0.0005** worked well for Adam, RMSprop, and SGD, while AdamW performed better at **0.0003**.
-
-## Machine Learning vs. Neural Network
-- The logistic regression model achieved **83.30% accuracy**, lower than all neural network models.
-- The neural network model's ability to capture non-linear relationships made it superior.
-- Logistic regression worked well with class weights and balanced training but lacked deep feature representation power.
-- Hyperparameter tuning in neural networks significantly enhanced performance.
-
-## Conclusion
-The **AdamW optimizer with L1 regularization** provided the best results. **SGD with Momentum** also performed well and had fewer computational requirements. Future improvements could involve hyperparameter tuning via GridSearch and experimenting with additional regularization techniques such as DropConnect and data augmentation strategies.
-
----
-
-## Video 
-A video discussion of these results can be found here: **[Video link: ]**
-
+ML Algorithm Hyperparameters:
+The Logistic Regression model was tuned with a maximum of 1000 iterations, balanced class weights, and the multinomial setting with the lbfgs solver. Despite its strong AUC (0.9820), its overall accuracy (82.40%) was lower compared to the neural network models.
