@@ -1,69 +1,56 @@
-# **FitPredictor (Predicting BMIcase)**
+# FitPredictor: Predicting BMIcase Using Machine Learning
 
-**Author:** Geofrey Tumwesigye  
-**African Leadership University**
+## Overview
+FitPredictor is a machine learning solution designed to predict BMIcase classifications using individual health metrics such as weight, height, BMI, Gender & Age.   
+This project aims to provide personalized health insights to tackle the rising prevalence of non-communicable diseases.  
+It leverages deep learning techniques along with a traditional ML baseline to empower individuals and healthcare providers.  
+The dataset comprises 5,000 samples sourced from Kaggle.
 
-## **Overview**
+## Dataset
+The dataset used for this project is available on Kaggle:
+[Fitness Exercises Using BFP and BMI](https://www.kaggle.com/datasets/mustafa20635/fitness-exercises-using-bfp-and-bmi)  
+It includes features such as Weight, Height, BMI, Body Fat Percentage, Gender, Age and BMIcase, among others.
 
-FitPredictor is a machine learning solution designed to predict BMIcase classifications (e.g., normal, overweight, obese, underweight) using individual health metrics such as weight, height, BMI, body fat percentage, gender and age.  
-This project addresses the rising prevalence of non-communicable diseases where obesity and undernutrition are growing concerns—by providing personalized and actionable health insights.  
-Leveraging deep learning alongside traditional machine learning, FitPredictor aims to empower individuals and healthcare providers with data-driven results for improved health outcomes.  
-The model demonstrates the practical application of ML in solving real-world health challenges, with potential to drive significant health impact among Rwandan communities.
+## Data Preprocessing & Feature Engineering
+- **Missing Value Check:** Verified that there are no missing values.
+- **Correlation Analysis:** A heatmap was generated to identify redundant features.
+- **Feature Engineering:** Dropped highly correlated features (Body Fat Percentage, BFPcase, Exercise Recommendation Plan) and created a new feature (`BMI_to_Weight`).
+- **Standardization & Encoding:** Standardized numerical features and label-encoded categorical variables (Gender and BMIcase).
+- **Data Splitting:** Data split into 70% training, 15% validation, and 15% testing.
+- **Class Imbalance Handling:** SMOTE was applied to balance the training data.
 
-## **Dataset**
+## Experimental Setup
+I built a training pipeline using a custom function (`train_save_evaluate`) that trains models for 100 epochs, saves the trained model, predicts on the test set and computes evaluation metrics (Accuracy, F1-score, Recall, Precision and Loss). The following table summarizes five training instances.
 
-- **Source:** The dataset was obtained from Kaggle.  
-  [Fitness Exercises Using BFP and BMI](https://www.kaggle.com/datasets/mustafa20635/fitness-exercises-using-bfp-and-bmi)
-- **Description:** Contains 5,000 samples with features including weight, height, BMI, body fat percentage, gender, age, and derived features for BMI classification.
+| Instance    | Optimizer Used                  | Regularizer Used     | Epochs | Early Stopping | # Layers               | Learning Rate | Accuracy | F1 Score | Recall | Precision |
+|-------------|---------------------------------|----------------------|--------|----------------|------------------------|---------------|----------|----------|--------|-----------|
+| **Instance 1**<br>(Simple NN)  | Default (no explicit optimizer)  | None                 | 100    | No             | 3 (Basic architecture)   | Default       | 86.27%   | 85.87%   | 86.27% | 85.93%    |
+| **Instance 2**<br>(Adam with L2)  | Adam                           | L2 (0.001)           | 100    | Yes (patience=10) | 4 (Dense + BN + Dropout)   | 0.0005        | **86.40%**   | **86.19%**   | **86.40%** | **86.17%**    |
+| **Instance 3**<br>(RMSprop)    | RMSprop                        | L2 (0.001)           | 100    | No             | 4 (Dense + BN + Dropout)   | 0.0005        | 84.53%* | 84.84%* | 84.53%* | 85.86%*  |
+| **Instance 4**<br>(SGD + Momentum) | SGD with Momentum              | L2 (0.001)           | 100    | Yes (patience=20) | 4 (Dense + BN + Dropout)   | 0.0005        | 85.60%   | 85.78%   | 85.60% | 86.17%    |
+| **Instance 5**<br>(Logistic Regression) | Logistic Regression (ML baseline) | Class weight balancing; multinomial | N/A    | N/A            | N/A                    | N/A           | 82.40%   | 82.73%   | 82.40% | 83.63%    |
 
-## Project Motivation & Problem Statement
+## Discussion of Findings
+- **Neural Network vs. Logistic Regression:**  
+  The deep learning models consistently outperform the logistic regression baseline, highlighting their ability to capture complex, non-linear relationships in the data. While logistic regression produced an excellent AUC (0.9820), its overall accuracy and F1-score were lower.
 
-- **Motivation:**  
-  With a significant rise in non-communicable diseases in Rwanda, there is an urgent need for personalized health tools that go beyond generic BMI calculators. Current tools do not offer the detailed, actionable insights needed to drive preventive health care.  
-  FitPredictor was inspired by Rwanda’s growing health challenges and aims to bridge the gap between health awareness and informed decision-making.
+- **Optimizer Impact:**  
+  - The **Simple NN** (Instance 1) serves as a robust baseline.
+  - The **Adam optimizer** (Instance 2) with L2 regularization and EarlyStopping (patience=10) achieved the best performance, with 86.40% accuracy, by preventing overfitting and ensuring the best weights were restored.
+  - The **RMSprop** (Instance 3) and **SGD with Momentum** (Instance 4) configurations yielded slightly lower performance. The SGD model, with a longer patience (20 epochs) to accommodate its slower convergence, still lagged behind the Adam configuration.
 
-- **Problem Statement:**  
-  Many individuals in Rwanda lack awareness of their BMI classification and its associated health implications due to limited access to tailored health tools. Existing solutions provide only basic BMI values without context or personalized recommendations. FitPredictor addresses this gap by leveraging machine learning to deliver accurate and relevant BMI classifications along with health insights.
+- **Early Stopping Role:**  
+  EarlyStopping is critical in halting training when no further improvement is observed, thus preventing overfitting and reducing training time. Its application in both the Adam and SGD experiments ensured the best model weights were retained.
 
-## Findings
+- **Best Combination:**  
+  Overall, the Adam-based model (Instance 2) with L2 regularization and EarlyStopping is the most effective, outperforming other neural network configurations and the logistic regression baseline.
 
-The following table summarizes key training instances.
+## ML Algorithm Hyperparameters (Logistic Regression)
+- **Max Iterations:** 1000  
+- **Class Weight:** Balanced  
+- **Solver:** lbfgs  
+- **Multi-class Strategy:** Multinomial
 
-| Instance   | Optimizer Used                | Regularizer Used         | Epochs | Early Stopping | Number of Layers                           | Learning Rate | Accuracy | F1 Score | Recall | Precision |
-|------------|-------------------------------|--------------------------|--------|----------------|--------------------------------------------|---------------|----------|----------|--------|-----------|
-| Instance 1 | Default                         | None                     | 100    | No             | 3 (Simple NN architecture)                 | Default       | 0.8627   | 0.8587   | 0.8627 | 0.8593    |
-| Instance 2 | Adam                          | L2                       | 100    | No             | 4 (Dense + BatchNorm + Dropout layers)       | 0.0005        | 0.8640   | 0.8619   | 0.8640 | 0.8617    |
-| Instance 3 | RMSprop                       | L2                       | 100    | No             | 4 (Dense + BatchNorm + Dropout layers)       | 0.0005        | 0.8387   | 0.8429   | 0.8387 | 0.8539    |
-| Instance 4 | SGD + Momentum (momentum=0.9) | L2                       | 100    | No             | 4 (Dense + BatchNorm + Dropout layers)       | 0.0005        | 0.8440   | 0.8456   | 0.8440 | 0.8500    |
-| Instance 5 | Logistic Regression               | Class weight balancing; solver=lbfgs, multi_class=multinomial | N/A  | N/A            | N/A                                        | N/A           | 0.8240   | 0.8273   | 0.8240 | 0.8363    |
-
-
-## Summary of Findings
-
-- **Best Neural Network Configuration:**  
-  The neural network using the **Adam optimizer with L2 regularization and a learning rate of 0.0005** achieved the highest performance with an accuracy of 86.40%.
-  
-- **Comparative Performance:**  
-  The deep learning models consistently outperformed the Logistic Regression baseline, underscoring the importance of tailored hyperparameter tuning and network design for BMI classification tasks.
-  
-- **ML Baseline Details:**  
-  The Logistic Regression model was configured with 1000 iterations, balanced class weight and a multinomial setting using the lbfgs solver. Despite a high AUC, its overall accuracy was lower compared to the neural network models.
-
-
-- **Model Architectures:**  
-  - **Simple Neural Network:** A baseline architecture using default settings.  
-  - **Optimized Neural Networks:**  
-    Models employing Adam, RMSprop and SGD with Momentum optimizers were experimented with, each featuring Batch Normalization and Dropout for improved generalization.  
-  - **Logistic Regression:**  
-    Served as the ML baseline for comparative evaluation.
-
-- **Training & Evaluation:**  
-  Models were trained for 100 epochs and evaluated using metrics such of accuracy, precision, recall, F1 score, ROC curves and AUC score. Models are in the saved_models` directory.
-
-- **Visualization:**  
-  Confusion matrices, ROC curves and training versus validation loss curves were generated to illustrate model performance.
-
-## Video 
-A video discussion of these results can be found here: **[Video link: ]**
-
+## Video Presentation
+A video presentation (with the camera on) is included in this repository. In the presentation, I discuss the experimental table, explain the rationale behind the choice of optimizers and hyperparameters, and provide an in-depth error analysis of the models' performance.
 
