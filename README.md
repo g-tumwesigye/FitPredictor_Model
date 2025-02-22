@@ -1,4 +1,4 @@
-# FitPredictor: Predicting BMIcase Using Machine Learning
+# FitPredictor (Predicting BMIcase)
 
 ## Overview
 FitPredictor is a machine learning solution designed to predict BMIcase classifications using individual health metrics such as weight, height, BMI, Gender & Age. 
