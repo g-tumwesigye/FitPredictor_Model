@@ -65,6 +65,5 @@ The following table summarizes key training instances.
 
 ## Video 
 A video discussion of these results can be found here: **[Video link: ]**
-![image](https://github.com/user-attachments/assets/390fa9ea-5cf8-4c86-9053-d798bfe177e4)
 
 
