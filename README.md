@@ -63,7 +63,8 @@ The following table summarizes key training instances.
 - **Visualization:**  
   Confusion matrices, ROC curves and training versus validation loss curves were generated to illustrate model performance.
 
-## Video Presentation
+## Video 
+A video discussion of these results can be found here: **[Video link: ]**
+![image](https://github.com/user-attachments/assets/390fa9ea-5cf8-4c86-9053-d798bfe177e4)
 
-A video presentation is included in the repository. In this presentation, the speaker (with the camera on) details the neural network diagram, discusses the experimental table, and explains how various hyperparameter combinations affect model performance. This video emphasizes the practical implications of the model and its potential health impact.
 
