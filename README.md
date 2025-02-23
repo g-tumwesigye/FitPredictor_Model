@@ -33,9 +33,7 @@ Multiple neural network instances were trained using various optimization and re
 | **Instance 5 (Logistic Regression - Baseline)**   | Logistic Regression           | (Class weight balancing) |   -    |   -                        |   -                  |   -               | 82.40%       | 82.73%       | 82.40%     | 83.63%        |
 
 ## Summary of findings
-- **Neural Network vs Logistic Regression:**  
-  Neural network models outperformed Logistic Regression in overall accuracy and F1 score though Logistic Regression had an excellent ROC AUC.  
-- **Optimizer impact:**  
+  - Neural network models outperformed Logistic Regression in overall accuracy and F1 score though Logistic Regression had an excellent ROC AUC.   
   - The **Simple NN** showed robust performance with no optimizer.  
   - The **Adam model** (instance 2) with L2 and EarlyStopping (patience=10) performed well but was outperformed by SGD+mpmentum with L2.  
   - The **RMSprop model** (instance 3) lagged behind.  
