@@ -38,19 +38,20 @@ Multiple neural network instances were trained using various optimization and re
 
 ## Summary of findings
 - **Neural Network vs Logistic Regression:**  
-  Neural network models outperform Logistic Regression in overall accuracy and F1 score though Logistic Regression had an excellent ROC AUC.  
+  Neural network models outperformed Logistic Regression in overall accuracy and F1 score though Logistic Regression had an excellent ROC AUC.  
 - **Optimizer impact:**  
-  - The **Simple NN** shows robust performance with no optimizer.  
-  - The **Adam model** (Instance 2) with L2 regularization and EarlyStopping (patience=10) performs well but is slightly outperformed by SGD.  
-  - The **RMSprop model** (Instance 3) lags behind.  
-  - The **SGD + Momentum model** (Instance 4) achieves the highest accuracy (87.47%) and best F1 score, recall and precision, making it the best model. The SGD + Momentum model with L2 regularization and EarlyStopping (patience = 20) delivered the best overall performance.
+  - The **Simple NN** showed robust performance with no optimizer.  
+  - The **Adam model** (instance 2) with L2 and EarlyStopping (patience=10) performed well but was outperformed by SGD+mpmentum with L2.  
+  - The **RMSprop model** (instance 3) lagged behind.  
+  - The **SGD + Momentum model** (instance 4) achieved the highest accuracy of 87.47% and best F1 score, recall and precision, making it the best model. The SGD + Momentum model with L2 regularization and EarlyStopping (patience = 20) delivered the best overall performance.
   - EarlyStopping helped to stop training when validation loss stopped improving & this prevented overfitting and ensured that the best weights are retained.
 
-## Logistic Regression Model
+## Hyperparameters of the Logistic Regression Model
 - **Max Iterations:** 1000  
-- **Class Weight:** Balanced  
+- **Class Weight:** Balanced in oredr to address the class imbalance.  
 - **Solver:** lbfgs  
 - **Multi-class Strategy:** Multinomial
+The hyperparameters ensured that the model converged reliably 
 
 ## Video 
 A video discussion of these results can be found here: **[Video link: ]**
