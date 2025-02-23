@@ -100,4 +100,4 @@ The hyperparameters ensured that the model converged reliably
 - Running the above cell will load the best saved model, make predictions on the test set, compute evaluation metrics (accuracy, precision, recall, F1 score and ROC AUC) and display the confusion matrix along with the loss curves.
 
 ## Video 
-A video discussion of these results can be found here: **[Video link: ]**
+A video discussion of these results can be found here: **[Video link: https://drive.google.com/file/d/1X7hcpUp5ZXKMHcypwt0VrA8SdfD-F5gj/view?usp=drive_link]**
