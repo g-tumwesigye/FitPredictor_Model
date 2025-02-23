@@ -5,12 +5,8 @@ FitPredictor is a machine learning solution designed to predict BMIcase classifi
 This project addresses the rising prevalence of non-communicable diseases—where obesity and undernutrition are growing concerns by providing personalized health insights.  
 FitPredictor empowers both individuals and healthcare providers with data-driven results to improve health outcomes.  
 
-
-**Motivation**  
-Rwanda, like many other developing nations, there is a sharp increase in non-communicable diseases. Traditional BMI calculators provide only basic values without the context needed for effective preventive healthcare. FitPredictor bridges this gap by delivering detailed BMI classifications and personalized health insights.
-
 **Problem Statement**  
-Many individuals in Rwanda lack awareness of their BMI classification and the associated health implications because current tools are generic and fail to offer tailored insights. FitPredictor leverages machine learning to deliver accurate BMI classifications and personalized health guidance.
+There is a sharp increase in non-communicable diseases. Traditional BMI calculators provide only basic values without the context needed for effective preventive healthcare. Many individuals lack awareness of their BMI classification and the associated health implications because current tools are generic and fail to offer tailored insights. FitPredictor leverages machine learning to deliver accurate BMI classifications and personalized health guidance thus bridging this gap by delivering detailed BMI classifications and personalized health insights.
 
 ## Dataset
 The dataset for this project is available on Kaggle:  
@@ -18,15 +14,15 @@ The dataset for this project is available on Kaggle:
 - **Size:** 5000 samples with 9 features
 
 ## Data Preprocessing & Feature Engineering
-- **Missing Value Check:** Confirmed there are no missing values.
-- **Correlation Analysis:** Generated a heatmap to identify redundant features.
-- **Feature Engineering:** Dropped highly correlated features (Body Fat Percentage, BFPcase, Exercise Recommendation Plan) and created a new feature (`BMI_to_Weight`).
-- **Standardization & Encoding:** Standardized numerical features and label-encoded categorical variables (Gender and BMIcase).
-- **Data Splitting:** Data was split into 70% training, 15% validation, and 15% testing.
-- **Class Imbalance Handling:** SMOTE was applied to balance the training data.
+- **Missing values check:** I confirmed that there were no missing values.
+- **Correlation analysis:** Generated a heatmap to identify redundant features.
+- **Feature engineering:** I dropped highly correlated features (Body Fat Percentage, BFPcase and Exercise Recommendation Plan) and created a new feature (**BMI_to_Weight**).
+- **Standardization & Encoding:** I standardized numerical features and label-encoded categorical variables (Gender and BMIcase).
+- **Data Splitting:** I split data into 70% training, 15% validation and 15% testing.
+- **Class imbalance handling:** SMOTE was applied to handle the class imbalance.
 
 ## Experimental Setup
-Multiple neural network instances were trained using various optimization and regularization strategies. Their performance is summarized in the table below:
+Multiple neural network instances were trained using various optimization and regularization stratefies & also Logistic regression. Their performance is summarized in the table below:
 
 | **Instance**                                      | **Optimizer Used**            | **Regularizer Used** | **Epochs** | **Early Stopping**         |  **Layers**         | **Learning Rate** | **Accuracy** | **F1 Score** | **Recall** | **Precision** |
 |---------------------------------------------------|-------------------------------|----------------------|------------|----------------------------|----------------------|-------------------|--------------|--------------|------------|---------------|
@@ -47,10 +43,10 @@ Multiple neural network instances were trained using various optimization and re
   - EarlyStopping helped to stop training when validation loss stopped improving & this prevented overfitting and ensured that the best weights are retained.
 
 ## Hyperparameters of the Logistic Regression Model
-- **Max Iterations:** 1000  
-- **Class Weight:** Balanced in oredr to address the class imbalance.  
+- **Max iterations:** 1000  
+- **Class weight:** Balanced in oredr to address the class imbalance.  
 - **Solver:** lbfgs  
-- **Multi-class Strategy:** Multinomial
+- **Multi-class:** Multinomial
 The hyperparameters ensured that the model converged reliably 
 
 ## Video 
