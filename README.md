@@ -34,7 +34,7 @@ Multiple neural network instances were trained using various optimization and re
 | **Instance 2 (Adam with L2)**                     | Adam                          | L2 (0.001)           | 100        | Yes (patience=10)          | 4 (Dense+BN+Dropout) | 0.0005            | 85.60%       | 85.78%       | 85.60%     | 85.62%        |
 | **Instance 3 (RMSprop)**                          | RMSprop                       | L2 (0.001)           | 100        | No                         | 4 (Dense+BN+Dropout) | 0.0005            | 84.13%       | 84.84%       | 84.13%     | 85.86%        |
 | **Instance 4 (SGD + Momentum)**                   | SGD + Momentum                | L2 (0.001)           | 100        | Yes (patience=20)          | 4 (Dense+BN+Dropout) | 0.0005            | **87.47%**   | **87.55%**   | **87.47%** | **87.76%**    |
-| **Instance 5 (Logistic Regression - Baseline)**   | Logistic Regression           | (Class weight balancing) | N/A    | N/A                        | N/A                  | N/A               | 82.40%       | 82.73%       | 82.40%     | 83.63%        |
+| **Instance 5 (Logistic Regression - Baseline)**   | Logistic Regression           | (Class weight balancing) |   -    |   -                        |   -                  |   -               | 82.40%       | 82.73%       | 82.40%     | 83.63%        |
 
 ## Summary of findings
 - **Neural Network vs Logistic Regression:**  
@@ -52,11 +52,5 @@ Multiple neural network instances were trained using various optimization and re
 - **Solver:** lbfgs  
 - **Multi-class Strategy:** Multinomial
 
-## Video Presentation
-In the video, I discuss the experimental results shown in the table above. I explain:
-- The motivation behind each optimization and regularization choice.
-- The process of training each model and the evaluation metrics obtained.
-- Why the SGD + Momentum model was selected as the best based on its superior performance.
-- A live demonstration of how final predictions are made using the best model, along with error analysis through a confusion matrix and loss curves.
-
+## Video 
 A video discussion of these results can be found here: **[Video link: ]**
