@@ -28,7 +28,7 @@ The dataset for this project is available on Kaggle:
 ## Experimental Setup
 Multiple neural network instances were trained using various optimization and regularization strategies. Their performance is summarized in the table below:
 
-| **Instance**                                      | **Optimizer Used**            | **Regularizer Used** | **Epochs** | **Early Stopping**         | **# Layers**         | **Learning Rate** | **Accuracy** | **F1 Score** | **Recall** | **Precision** |
+| **Instance**                                      | **Optimizer Used**            | **Regularizer Used** | **Epochs** | **Early Stopping**         | ** Layers**         | **Learning Rate** | **Accuracy** | **F1 Score** | **Recall** | **Precision** |
 |---------------------------------------------------|-------------------------------|----------------------|------------|----------------------------|----------------------|-------------------|--------------|--------------|------------|---------------|
 | **Instance 1 (Simple NN)**                        | Default (no optomizer)          | None                 | 100        | No                         | 3 (Dense-only)       | Default           | 86.53%       | 86.46%       | 86.53%     | 86.44%        |
 | **Instance 2 (Adam with L2)**                     | Adam                          | L2 (0.001)           | 100        | Yes (patience=10)          | 4 (Dense+BN+Dropout) | 0.0005            | 85.60%       | 85.78%       | 85.60%     | 85.62%        |
