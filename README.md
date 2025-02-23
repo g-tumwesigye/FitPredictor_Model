@@ -45,7 +45,59 @@ Multiple neural network instances were trained using various optimization and re
 - **Class weight:** Balanced in oredr to address the class imbalance.  
 - **Solver:** lbfgs  
 - **Multi-class:** Multinomial
-The hyperparameters ensured that the model converged reliably 
+The hyperparameters ensured that the model converged reliably
+
+## How to run the notebook,load & evaluatee the best saved model
+
+1. **Running the Notebook:**
+   - Open the notebook in Google Colab.
+   - Make sure you have uploaded the dataset file (e.g., `fitpredictor_dataset.csv`) to your Colab environment.
+   - Run all cells sequentially. You can click on **Runtime > Run all** to execute the notebook from start to finish.
+   - The notebook will automatically preprocess the data, train multiple models using various optimization and regularization techniques and save each trained model in the `/content/saved_models` directory.
+
+2. **Loading and evaluating the best model:**
+   - After running all cells, review the comparison table printed in the notebook to determine the best performing model based on the evaluation metrics.
+   - The notebook is set up to save the best model and in my case, the SGD + Momentum model as `/content/saved_models/sgd_momentum_model.h5`.
+   - To load the best model and make predictions on the test set, run the following code cell at the end of the notebook:
+
+   ```python
+   from tensorflow.keras.models import load_model
+   from sklearn.metrics import accuracy_score, precision_score, recall_score, f1_score, confusion_matrix, roc_auc_score
+   import matplotlib.pyplot as plt
+   import seaborn as sns
+   import numpy as np
+
+   best_model_path = "/content/saved_models/sgd_momentum_model.h5"
+   model = load_model(best_model_path)
+   pred_probs = model.predict(X_test)
+   pred_classes = np.argmax(pred_probs, axis=1)
+   true_classes = np.argmax(y_test, axis=1)
+
+   acc = accuracy_score(true_classes, pred_classes)
+   prec = precision_score(true_classes, pred_classes, average='weighted')
+   rec = recall_score(true_classes, pred_classes, average='weighted')
+   f1_val = f1_score(true_classes, pred_classes, average='weighted')
+   roc_auc = roc_auc_score(y_test, pred_probs, multi_class='ovr', average='weighted')
+
+   print("Accuracy: {:.4f}".format(acc))
+   print("Precision: {:.4f}".format(prec))
+   print("Recall: {:.4f}".format(rec))
+   print("F1 Score: {:.4f}".format(f1_val))
+   print("ROC AUC: {:.4f}".format(roc_auc))
+
+   cm_matrix = confusion_matrix(true_classes, pred_classes)
+   print("Confusion Matrix:")
+   print(cm_matrix)
+
+   plt.figure(figsize=(8,6))
+   sns.heatmap(cm_matrix, annot=True, fmt="d", cmap="Blues",
+               xticklabels=np.unique(true_classes), yticklabels=np.unique(true_classes))
+   plt.xlabel("Predicted Labels")
+   plt.ylabel("True Labels")
+   plt.title("Confusion Matrix - Best Model")
+   plt.show()
+   
+- Running the above cell will load the best saved model, make predictions on the test set, compute evaluation metrics (accuracy, precision, recall, F1 score and ROC AUC) and display the confusion matrix along with the loss curves.
 
 ## Video 
 A video discussion of these results can be found here: **[Video link: ]**
