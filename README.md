@@ -21,7 +21,7 @@ The dataset for this project is available on Kaggle:
 - **Data Splitting:** I split data into 70% training, 15% validation and 15% testing.
 - **Class imbalance handling:** SMOTE was applied to handle the class imbalance.
 
-## Experimental Setup
+## Comparison & performance evaluation
 Multiple neural network instances were trained using various optimization and regularization stratefies & also Logistic regression. Their performance is summarized in the table below:
 
 | **Instance**                                      | **Optimizer Used**            | **Regularizer Used** | **Epochs** | **Early Stopping**         |  **Layers**         | **Learning Rate** | **Accuracy** | **F1 Score** | **Recall** | **Precision** |
